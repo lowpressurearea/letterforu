@@ -111,7 +111,7 @@
     box-shadow: 0 25px 60px rgba(0,0,0,0.45), 0 0 0 1px rgba(255,255,255,0.05);
     transform: rotate(-3deg);
     position: relative;
-    width: min(280px, 80vw);
+    width: min(300px, 82vw);
   }
 
   .photostrip::before {
@@ -131,7 +131,7 @@
     background: linear-gradient(135deg, var(--navy-soft), var(--maroon-soft));
     border-radius: 2px;
     margin-bottom: 12px;
-    aspect-ratio: 4 / 3;
+    aspect-ratio: 2 / 3;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -142,7 +142,12 @@
     padding: 10px;
     overflow: hidden;
     position: relative;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
   }
+
+  .frame.clickable:active { transform: scale(0.985); }
+  .frame.clickable { transition: transform 0.15s ease; }
 
   .frame img, .frame video {
     width: 100%;
@@ -228,9 +233,9 @@
     border: 6px solid var(--paper);
     border-radius: 8px;
     box-shadow: 0 25px 60px rgba(0,0,0,0.5);
-    max-width: 460px;
+    max-width: 560px;
     margin: 0 auto;
-    aspect-ratio: 9 / 12;
+    aspect-ratio: 16 / 9;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -294,6 +299,57 @@
   @media (max-width: 520px) {
     .letter { padding: 40px 26px; }
   }
+
+  /* ---------- Lightbox ---------- */
+  .lightbox {
+    position: fixed;
+    inset: 0;
+    background: rgba(9, 12, 22, 0.88);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    padding: env(safe-area-inset-top, 20px) env(safe-area-inset-right, 20px)
+             env(safe-area-inset-bottom, 20px) env(safe-area-inset-left, 20px);
+    -webkit-backdrop-filter: blur(6px);
+    backdrop-filter: blur(6px);
+    touch-action: manipulation;
+  }
+
+  .lightbox.open {
+    display: flex;
+  }
+
+  .lightbox img {
+    max-width: min(92vw, 520px);
+    max-height: 85vh;
+    max-height: 85dvh;
+    width: auto;
+    height: auto;
+    border-radius: 6px;
+    box-shadow: 0 30px 80px rgba(0,0,0,0.6);
+    -webkit-user-select: none;
+    user-select: none;
+  }
+
+  .lightbox-close {
+    position: absolute;
+    top: max(18px, env(safe-area-inset-top));
+    right: max(18px, env(safe-area-inset-right));
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.12);
+    border: 1px solid rgba(255,255,255,0.3);
+    color: var(--cream-light);
+    font-size: 20px;
+    line-height: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+  }
 </style>
 </head>
 <body>
@@ -310,8 +366,8 @@
   <section class="strip-section">
     <div class="photostrip">
       <!-- Swap the src below with your photo, e.g. src="photobooth-1.jpg" -->
-      <div class="frame">
-        <img src="photobooth-1.jpg" alt="photobooth photo of us" onerror="this.style.display='none'; this.parentElement.innerHTML='drop your photobooth photo here<br>(photobooth-1.jpg)'">
+      <div class="frame clickable" onclick="openLightbox()" role="button" tabindex="0" aria-label="View photo larger" onkeydown="if(event.key==='Enter'){openLightbox()}">
+        <img id="mainPhoto" src="photobooth-1.jpg" alt="photobooth photo of us" onerror="this.style.display='none'; this.closest('.frame').classList.remove('clickable'); this.closest('.frame').removeAttribute('onclick'); this.parentElement.innerHTML='drop your photobooth photo here<br>(photobooth-1.jpg)'">
       </div>
       <div class="strip-caption">us, lately</div>
     </div>
@@ -340,5 +396,25 @@
   <footer>made with love, for <span>rissa</span> · lans</footer>
 
 </div>
+
+<div class="lightbox" id="lightbox" onclick="closeLightbox(event)">
+  <button class="lightbox-close" onclick="closeLightbox(event)" aria-label="Close">&times;</button>
+  <img id="lightboxImg" src="photobooth-1.jpg" alt="photobooth photo of us, enlarged" onclick="event.stopPropagation()">
+</div>
+
+<script>
+  function openLightbox() {
+    document.getElementById('lightbox').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeLightbox(e) {
+    document.getElementById('lightbox').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') closeLightbox();
+  });
+</script>
+
 </body>
 </html>
