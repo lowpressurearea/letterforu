@@ -350,6 +350,54 @@
     cursor: pointer;
     -webkit-tap-highlight-color: transparent;
   }
+
+  /* ---------- Music toggle ---------- */
+  .music-toggle {
+    position: fixed;
+    bottom: max(20px, env(safe-area-inset-bottom));
+    right: max(20px, env(safe-area-inset-right));
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    background: var(--maroon);
+    border: 1px solid rgba(255,255,255,0.25);
+    color: var(--cream-light);
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 12px 30px rgba(0,0,0,0.45);
+    z-index: 1001;
+    -webkit-tap-highlight-color: transparent;
+    transition: transform 0.15s ease;
+  }
+
+  .music-toggle:active { transform: scale(0.92); }
+
+  .music-toggle .bar {
+    display: inline-block;
+    width: 3px;
+    margin: 0 1px;
+    background: var(--cream-light);
+    border-radius: 2px;
+    height: 10px;
+  }
+
+  .music-toggle.playing .bar {
+    animation: eq 0.9s ease-in-out infinite alternate;
+  }
+  .music-toggle.playing .bar:nth-child(2) { animation-delay: 0.15s; }
+  .music-toggle.playing .bar:nth-child(3) { animation-delay: 0.3s; }
+
+  @keyframes eq {
+    from { height: 6px; }
+    to { height: 18px; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .music-toggle.playing .bar { animation: none; height: 12px; }
+  }
 </style>
 </head>
 <body>
@@ -387,7 +435,7 @@
     <div class="eyebrow">a moment, moving</div>
     <div class="video-frame">
       <!-- Swap the src below with your video, e.g. src="photobooth-clip.mp4" -->
-      <video controls playsinline poster="" onerror="this.parentElement.innerHTML='drop your photobooth video here<br>(photobooth-clip.mp4)'">
+      <video controls playsinline loop autoplay muted poster="" onerror="this.parentElement.innerHTML='drop your photobooth video here<br>(photobooth-clip.mp4)'">
         <source src="photobooth-clip.mp4" type="video/mp4">
       </video>
     </div>
@@ -402,6 +450,12 @@
   <img id="lightboxImg" src="photobooth-1.jpg" alt="photobooth photo of us, enlarged" onclick="event.stopPropagation()">
 </div>
 
+<!-- Swap the src below with your song, e.g. src="our-song.mp3" -->
+<audio id="bgMusic" src="our-song.mp3" loop preload="none"></audio>
+<button class="music-toggle" id="musicToggle" onclick="toggleMusic()" aria-label="Play background music">
+  <span class="bar"></span><span class="bar"></span><span class="bar"></span>
+</button>
+
 <script>
   function openLightbox() {
     document.getElementById('lightbox').classList.add('open');
@@ -414,6 +468,27 @@
   document.addEventListener('keydown', function(e) {
     if (e.key === 'Escape') closeLightbox();
   });
+
+  const bgMusic = document.getElementById('bgMusic');
+  const musicToggle = document.getElementById('musicToggle');
+  let musicPlaying = false;
+
+  function toggleMusic() {
+    if (!musicPlaying) {
+      bgMusic.play().then(function () {
+        musicPlaying = true;
+        musicToggle.classList.add('playing');
+        musicToggle.setAttribute('aria-label', 'Pause background music');
+      }).catch(function () {
+        // song file missing or blocked — nothing to play yet
+      });
+    } else {
+      bgMusic.pause();
+      musicPlaying = false;
+      musicToggle.classList.remove('playing');
+      musicToggle.setAttribute('aria-label', 'Play background music');
+    }
+  }
 </script>
 
 </body>
