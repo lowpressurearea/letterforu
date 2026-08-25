@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>for rissa</title>
+<link rel="icon" type="image/jpg" href="favicon.jpg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
@@ -44,11 +45,39 @@
     z-index: 999;
   }
 
+  .tulip-field {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    overflow: hidden;
+    z-index: 0;
+  }
+
+  .tulip {
+    position: absolute;
+    width: 70px;
+    height: auto;
+    opacity: 0.32;
+    filter: drop-shadow(0 6px 10px rgba(0,0,0,0.25));
+  }
+
+  .t1 { bottom: -10px; left: 2%; width: 90px; transform: rotate(-6deg); }
+  .t2 { bottom: -6px; left: 10%; width: 60px; transform: rotate(4deg); opacity: 0.24; }
+  .t3 { bottom: 4%; right: 4%; width: 100px; transform: rotate(8deg) scaleX(-1); }
+  .t4 { bottom: -4px; right: 14%; width: 55px; transform: rotate(-5deg) scaleX(-1); opacity: 0.22; }
+  .t5 { top: 4%; left: -20px; width: 60px; transform: rotate(160deg); opacity: 0.16; }
+  .t6 { top: -20px; right: 6%; width: 70px; transform: rotate(190deg) scaleX(-1); opacity: 0.16; }
+
+  @media (max-width: 640px) {
+    .t3, .t6 { display: none; }
+  }
+
   .wrap {
     max-width: 880px;
     margin: 0 auto;
     padding: 70px 24px 120px;
     position: relative;
+    z-index: 1;
   }
 
   /* ---------- Hero ---------- */
@@ -175,6 +204,10 @@
     box-shadow: 0 30px 70px rgba(0,0,0,0.45);
     position: relative;
     margin: 60px 0;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    user-select: none;
+    -webkit-touch-callout: none;
   }
 
   .letter::before {
@@ -212,6 +245,14 @@
 
   .letter p:last-of-type { margin-bottom: 0; }
 
+  .letter-gif {
+    display: block;
+    max-width: 180px;
+    width: 60%;
+    margin: 20px auto 0;
+    border-radius: 6px;
+  }
+
   .signoff {
     text-align: right;
     font-family: 'Caveat', cursive;
@@ -224,6 +265,10 @@
   .keepsake {
     margin: 60px 0;
     text-align: center;
+  }
+
+  .eyebrow.as-typed {
+    text-transform: none;
   }
 
   .keepsake .eyebrow { margin-bottom: 16px; }
@@ -250,35 +295,6 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
-  }
-
-  /* ---------- Words section ---------- */
-  .words {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 14px;
-    justify-content: center;
-    margin: 60px 0;
-  }
-
-  .word-chip {
-    font-family: 'Poppins', sans-serif;
-    font-size: 13px;
-    letter-spacing: 0.05em;
-    padding: 10px 20px;
-    border-radius: 999px;
-    border: 1px solid rgba(255,255,255,0.25);
-    color: var(--cream-light);
-    background: rgba(255,255,255,0.05);
-  }
-
-  .word-chip.accent {
-    background: var(--maroon-soft);
-    border-color: transparent;
-  }
-  .word-chip.accent2 {
-    background: var(--navy-soft);
-    border-color: transparent;
   }
 
   /* ---------- Footer ---------- */
@@ -351,63 +367,55 @@
     -webkit-tap-highlight-color: transparent;
   }
 
-  /* ---------- Music toggle ---------- */
-  .music-toggle {
-    position: fixed;
-    bottom: max(20px, env(safe-area-inset-bottom));
-    right: max(20px, env(safe-area-inset-right));
-    width: 52px;
-    height: 52px;
-    border-radius: 50%;
-    background: var(--maroon);
-    border: 1px solid rgba(255,255,255,0.25);
-    color: var(--cream-light);
-    font-size: 20px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    box-shadow: 0 12px 30px rgba(0,0,0,0.45);
-    z-index: 1001;
-    -webkit-tap-highlight-color: transparent;
-    transition: transform 0.15s ease;
-  }
-
-  .music-toggle:active { transform: scale(0.92); }
-
-  .music-toggle .bar {
-    display: inline-block;
-    width: 3px;
-    margin: 0 1px;
-    background: var(--cream-light);
-    border-radius: 2px;
-    height: 10px;
-  }
-
-  .music-toggle.playing .bar {
-    animation: eq 0.9s ease-in-out infinite alternate;
-  }
-  .music-toggle.playing .bar:nth-child(2) { animation-delay: 0.15s; }
-  .music-toggle.playing .bar:nth-child(3) { animation-delay: 0.3s; }
-
-  @keyframes eq {
-    from { height: 6px; }
-    to { height: 18px; }
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    .music-toggle.playing .bar { animation: none; height: 12px; }
-  }
 </style>
 </head>
 <body>
 <div class="grain"></div>
+<div class="tulip-field" aria-hidden="true">
+  <svg class="tulip t1" viewBox="0 0 60 90" xmlns="http://www.w3.org/2000/svg">
+    <path d="M30 40 L30 85" stroke="#3a5230" stroke-width="3" fill="none"/>
+    <path d="M30 60 Q15 55 14 42" stroke="#3a5230" stroke-width="2.5" fill="none"/>
+    <path d="M30 68 Q45 62 47 48" stroke="#3a5230" stroke-width="2.5" fill="none"/>
+    <path d="M30 8 C18 8 14 20 18 30 C22 38 38 38 42 30 C46 20 42 8 30 8Z" fill="#9c3a4d"/>
+    <path d="M30 10 C24 12 22 22 25 30" stroke="#7a2436" stroke-width="1.5" fill="none" opacity="0.6"/>
+    <path d="M30 10 C36 12 38 22 35 30" stroke="#7a2436" stroke-width="1.5" fill="none" opacity="0.6"/>
+  </svg>
+  <svg class="tulip t2" viewBox="0 0 60 90" xmlns="http://www.w3.org/2000/svg">
+    <path d="M30 40 L30 85" stroke="#3a5230" stroke-width="3" fill="none"/>
+    <path d="M30 58 Q17 52 16 40" stroke="#3a5230" stroke-width="2.5" fill="none"/>
+    <path d="M30 8 C18 8 14 20 18 30 C22 38 38 38 42 30 C46 20 42 8 30 8Z" fill="#33436e"/>
+    <path d="M30 10 C24 12 22 22 25 30" stroke="#1f2c4d" stroke-width="1.5" fill="none" opacity="0.6"/>
+    <path d="M30 10 C36 12 38 22 35 30" stroke="#1f2c4d" stroke-width="1.5" fill="none" opacity="0.6"/>
+  </svg>
+  <svg class="tulip t3" viewBox="0 0 60 90" xmlns="http://www.w3.org/2000/svg">
+    <path d="M30 40 L30 85" stroke="#3a5230" stroke-width="3" fill="none"/>
+    <path d="M30 66 Q44 60 46 46" stroke="#3a5230" stroke-width="2.5" fill="none"/>
+    <path d="M30 8 C18 8 14 20 18 30 C22 38 38 38 42 30 C46 20 42 8 30 8Z" fill="#c9a15a"/>
+    <path d="M30 10 C24 12 22 22 25 30" stroke="#9c7a3d" stroke-width="1.5" fill="none" opacity="0.6"/>
+    <path d="M30 10 C36 12 38 22 35 30" stroke="#9c7a3d" stroke-width="1.5" fill="none" opacity="0.6"/>
+  </svg>
+  <svg class="tulip t4" viewBox="0 0 60 90" xmlns="http://www.w3.org/2000/svg">
+    <path d="M30 40 L30 85" stroke="#3a5230" stroke-width="3" fill="none"/>
+    <path d="M30 60 Q15 55 14 42" stroke="#3a5230" stroke-width="2.5" fill="none"/>
+    <path d="M30 8 C18 8 14 20 18 30 C22 38 38 38 42 30 C46 20 42 8 30 8Z" fill="#9c3a4d"/>
+  </svg>
+  <svg class="tulip t5" viewBox="0 0 60 90" xmlns="http://www.w3.org/2000/svg">
+    <path d="M30 40 L30 85" stroke="#3a5230" stroke-width="3" fill="none"/>
+    <path d="M30 58 Q17 52 16 40" stroke="#3a5230" stroke-width="2.5" fill="none"/>
+    <path d="M30 8 C18 8 14 20 18 30 C22 38 38 38 42 30 C46 20 42 8 30 8Z" fill="#33436e"/>
+  </svg>
+  <svg class="tulip t6" viewBox="0 0 60 90" xmlns="http://www.w3.org/2000/svg">
+    <path d="M30 40 L30 85" stroke="#3a5230" stroke-width="3" fill="none"/>
+    <path d="M30 66 Q44 60 46 46" stroke="#3a5230" stroke-width="2.5" fill="none"/>
+    <path d="M30 8 C18 8 14 20 18 30 C22 38 38 38 42 30 C46 20 42 8 30 8Z" fill="#9c3a4d"/>
+  </svg>
+</div>
 <div class="wrap">
 
   <section class="hero">
-    <div class="eyebrow">a little thank you, for you</div>
+    <div class="eyebrow">a letter for her</div>
     <h1>for <span>rissa</span></h1>
-    <p class="sub">every small step</p>
+    <p class="sub">for the girl who lets me walk beside her</p>
     <div class="divider"></div>
   </section>
 
@@ -417,25 +425,29 @@
       <div class="frame clickable" onclick="openLightbox()" role="button" tabindex="0" aria-label="View photo larger" onkeydown="if(event.key==='Enter'){openLightbox()}">
         <img id="mainPhoto" src="photobooth-1.jpg" alt="photobooth photo of us" onerror="this.style.display='none'; this.closest('.frame').classList.remove('clickable'); this.closest('.frame').removeAttribute('onclick'); this.parentElement.innerHTML='drop your photobooth photo here<br>(photobooth-1.jpg)'">
       </div>
-      <div class="strip-caption">us, lately</div>
+      <div class="strip-caption">cute mo :((( ARGHH</div>
     </div>
   </section>
 
-  <section class="letter">
-    <h2>a note for you</h2>
-    <p>Rissa,<br>I'm beyond happy that I finally get to call myself your boyfie. After everything we've been through, I'm so grateful that we found our way back to each other and chose to move forward together.</p>
-    <p>I know that everything doesn't have to be figured out all at once. I believe the best things are built one small step, one small gesture, one conversation, and one day at a time. So that's what I want to do with you. Slowly, intentionally, and consistently.</p>
-    <p>I want to keep learning you, loving you better, and building our own little world together. Here's to us, to all the little moments that will eventually become our biggest memories, and to everything that's still waiting for us.</p>
-    <p>I'm really, really happy to be your "boyfie" XD.</p>
-    <p>I love you.</p>
+  <section class="letter" oncopy="return false" oncontextmenu="return false">
+    <h2>a letter for you</h2>
+    <p>rissa,<br>it still feels surreal... thank you for letting me be a part of your life. even before all of this, being someone who gets to know you, share moments with you, and simply be by your side already meant so much to me.</p>
+    <p>and now, somehow, i get to be your boyfie (fr na talaga may #karapatan na). XD</p>
+    <p>i don't think i'll ever take <s>that</s> this for granted. there's something really special about being able to walk beside you, to share more of your days, your stories, your little joys, and even the random things that make you, you.</p>
+    <p>i'm just really happy that it's us. happy that i get to be here, happy that i get to experience more of life with you, and happy that all the little moments ahead of us are things we get to discover together.</p>
+    <p>thank you for letting me into your world, rissa. i'll always be grateful that our paths crossed, but even more grateful that they continue to cross every day.</p>
+    <p>and honestly, being your boyfie is a pretty sweet privilege.</p>
+    <p>here's to us, and to all the little things that are still waiting to become our memories.</p>
+    <p>i love you, ban2t</p>
+    <img class="letter-gif" src="https://media.tenor.com/K6ePAM7uA_0AAAAj/stinky-soap-emoticon-emoticon.gif" alt="silly soap emoji gif">
     <div class="signoff">— lans</div>
   </section>
 
   <section class="keepsake">
-    <div class="eyebrow">a moment, moving</div>
+    <div class="eyebrow as-typed">eto cute na vid edit dedma sa mga nakacapcut AHAHAHA</div>
     <div class="video-frame">
       <!-- Swap the src below with your video, e.g. src="photobooth-clip.mp4" -->
-      <video controls playsinline loop autoplay muted poster="" onerror="this.parentElement.innerHTML='drop your photobooth video here<br>(photobooth-clip.mp4)'">
+      <video controls playsinline poster="" onerror="this.parentElement.innerHTML='drop your photobooth video here<br>(photobooth-clip.mp4)'">
         <source src="photobooth-clip.mp4" type="video/mp4">
       </video>
     </div>
@@ -450,12 +462,6 @@
   <img id="lightboxImg" src="photobooth-1.jpg" alt="photobooth photo of us, enlarged" onclick="event.stopPropagation()">
 </div>
 
-<!-- Swap the src below with your song, e.g. src="our-song.mp3" -->
-<audio id="bgMusic" src="our-song.mp3" loop preload="none"></audio>
-<button class="music-toggle" id="musicToggle" onclick="toggleMusic()" aria-label="Play background music">
-  <span class="bar"></span><span class="bar"></span><span class="bar"></span>
-</button>
-
 <script>
   function openLightbox() {
     document.getElementById('lightbox').classList.add('open');
@@ -468,27 +474,6 @@
   document.addEventListener('keydown', function(e) {
     if (e.key === 'Escape') closeLightbox();
   });
-
-  const bgMusic = document.getElementById('bgMusic');
-  const musicToggle = document.getElementById('musicToggle');
-  let musicPlaying = false;
-
-  function toggleMusic() {
-    if (!musicPlaying) {
-      bgMusic.play().then(function () {
-        musicPlaying = true;
-        musicToggle.classList.add('playing');
-        musicToggle.setAttribute('aria-label', 'Pause background music');
-      }).catch(function () {
-        // song file missing or blocked — nothing to play yet
-      });
-    } else {
-      bgMusic.pause();
-      musicPlaying = false;
-      musicToggle.classList.remove('playing');
-      musicToggle.setAttribute('aria-label', 'Play background music');
-    }
-  }
 </script>
 
 </body>
